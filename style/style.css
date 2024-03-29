@@ -441,6 +441,13 @@ div.text.large {
     font-weight: bold;
 }
 
+div.box-heading {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    margin: 10px;
+}
+
 /* 
  * @todo: Add media queries for smaller screens
  *
