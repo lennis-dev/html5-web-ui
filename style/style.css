@@ -1,0 +1,526 @@
+:root {
+    /* dark theme */
+    --background-color: #111;
+    --background-color-secondary: #181818;
+    --text-color: #eee;
+    --text-color-secondary: #aaa;
+    --primary-color: #ff0000;
+    --primary-color-hover: #ff000044;
+    --primary-color-active: #ff000088;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --info-color: #17a2b8;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --border-color: #888;
+
+    --font: 'Roboto', sans-serif;
+    --transition-background: 0.5s background-color;
+    --border-radius: 10px;
+}
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.loader {
+    transform: scale(1);
+    width: 60px;
+    aspect-ratio: 1;
+    --_g: no-repeat radial-gradient(farthest-side, var(--primary-color) 94%, #0000);
+    background: var(--_g) 0 0, var(--_g) 100% 0, var(--_g) 100% 100%, var(--_g) 0 100%;
+    background-size: 40% 40%;
+    animation: l38 .5s infinite;
+    transition: transform 0.5s;
+}
+
+@keyframes l38 {
+    100% {
+        background-position: 100% 0, 100% 100%, 0 100%, 0 0
+    }
+}
+
+.loading-screen.disappear .loader {
+    transform: scale(0);
+}
+
+.loading-screen.disappear {
+    pointer-events: none;
+    opacity: 0;
+}
+
+body {
+    margin: 0px;
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-template-rows: 100px auto;
+    grid-template-areas: "nav header" "nav main";
+    gap: 10px;
+    height: calc(100vh - 20px);
+    background-color: var(--background-color);
+    font-family: var(--font);
+}
+
+header {
+    grid-area: header;
+    padding: 10px;
+    border-radius: var(--border-radius);
+}
+
+main {
+    grid-area: main;
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    height: 100%;
+    width: calc(100% - 20px);
+    overflow-x: none;
+    overflow-y: scroll;
+    height: 100%;
+    padding: 10px;
+}
+
+nav {
+    grid-area: nav;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+.logo-container {
+    height: 100px;
+    text-align: center;
+
+}
+
+.logo-container img {
+    height: 100px;
+    object-fit: contain;
+    object-position: center;
+    width: calc(100% - 40px);
+}
+
+header {
+    padding: 25px 20px;
+    display: flex;
+    justify-content: right;
+    user-select: none;
+}
+
+header .profile {
+    display: flex;
+    height: 48px;
+    line-height: 48px;
+    border-radius: 24px;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    cursor: pointer;
+}
+
+header .profile .name {
+    color: var(--background-color);
+    padding: 0px 20px;
+    font-size: 20px;
+}
+
+header .profile .avatar img {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    background-color: var(--background-color);
+}
+
+nav ul.top-nav {
+    flex: 1;
+}
+
+nav ul.bottom-nav {
+    flex: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 10px;
+    transition: var(--transition-background);
+    border-radius: var(--border-radius);
+}
+
+nav ul li:hover {
+    background-color: var(--primary-color-hover);
+}
+
+nav ul li.active {
+    background-color: var(--primary-color-active);
+}
+
+nav ul li a {
+    padding: 10px;
+    width: calc(100% - 20px);
+    display: block;
+    text-decoration: none;
+    font-size: 20px;
+    color: var(--text-color)
+}
+
+div.context-menu {
+    position: absolute;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: auto;
+    min-width: 200px;
+    padding: 5px;
+    user-select: none;
+}
+
+div.context-menu.disabled {
+    display: none;
+}
+
+div.context-menu .row {
+    display: flex;
+}
+
+div.context-menu .row div {
+    width: 100%;
+    text-align: center;
+}
+
+div.context-menu div.item {
+    padding: 10px;
+    transition: var(--transition-background);
+    border-radius: calc(var(--border-radius) / 2);
+    cursor: pointer;
+}
+
+div.context-menu div.item:hover {
+    background-color: var(--primary-color-hover);
+}
+
+div.context-menu hr {
+    margin: 5px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.notification-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 800;
+    width: 400px;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.notification-container .notification {
+    background-color: var(--background-color-secondary);
+    color: var(--text-color-secondary);
+    border-radius: var(--border-radius);
+    border-left: 10px solid #0000;
+    padding: 10px;
+    margin: 10px;
+    transition: var(--transition-background);
+    outline: 1px solid var(--border-color);
+    transition: var(--transition-background);
+    position: relative;
+}
+
+.notification-container .notification:hover {
+    background-color: var(--background-color);
+}
+
+.notification-container .notification .close {
+    position: absolute;
+    right: 2px;
+    top: 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.notification-container .notification .close::after {
+    content: '\00D7';
+}
+
+.notification-container .notification .close:hover {
+    color: var(--danger-color);
+}
+
+.notification-container .notification .heading {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.notification-container .notification .heading.info {
+    color: var(--info-color);
+}
+
+.notification-container .notification .heading.success {
+    color: var(--success-color);
+}
+
+.notification-container .notification .heading.error {
+    color: var(--danger-color);
+}
+
+.notification-container .notification .heading.warning {
+    color: var(--warning-color);
+}
+
+.notification-container .notification.info {
+    border-color: var(--info-color);
+}
+
+.notification-container .notification.success {
+    border-color: var(--success-color);
+}
+
+.notification-container .notification.error {
+    border-color: var(--danger-color);
+}
+
+.notification-container .notification.warning {
+    border-color: var(--warning-color)
+}
+
+.page {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    padding: 10px;
+}
+
+.page .box {
+    background-color: var(--background-color-secondary);
+    color: var(--text-color-secondary);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    height: calc(100% - 40px);
+    aspect-ratio: 1/1;
+    width: calc(100% - 40px);
+    position: relative;
+    overflow: hidden;
+}
+
+.page .box.a1x1 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.page .box.a2x1 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.page .box.a3x1 {
+    grid-column: span 3;
+    grid-row: span 1;
+}
+
+.page .box.a4x1 {
+    grid-column: span 4;
+    grid-row: span 1;
+}
+
+.page .box.a1x2 {
+    grid-column: span 1;
+    grid-row: span 2;
+}
+
+.page .box.a2x2 {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.page .box.a3x2 {
+    grid-column: span 3;
+    grid-row: span 2;
+}
+
+.page .box.a4x2 {
+    grid-column: span 4;
+    grid-row: span 2;
+}
+
+.page .box.a1x3 {
+    grid-column: span 1;
+    grid-row: span 3;
+}
+
+.page .box.a2x3 {
+    grid-column: span 2;
+    grid-row: span 3;
+}
+
+.page .box.a3x3 {
+    grid-column: span 3;
+    grid-row: span 3;
+}
+
+.page .box.a4x3 {
+    grid-column: span 4;
+    grid-row: span 3;
+}
+
+.page .box.a1x4 {
+    grid-column: span 1;
+    grid-row: span 4;
+}
+
+.page .box.a2x4 {
+    grid-column: span 2;
+    grid-row: span 4;
+}
+
+.page .box.a3x4 {
+    grid-column: span 3;
+    grid-row: span 4;
+}
+
+.page .box.a4x4 {
+    grid-column: span 4;
+    grid-row: span 4;
+}
+
+
+.page .subgrid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    height: 100%;
+    width: 100%;
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+
+svg.progress-bar {
+    height: 100%;
+    width: 100%;
+    border-radius: var(--border-radius);
+    background-color: var(--background-color-secondary);
+    object-fit: contain;
+    object-position: center;
+    user-select: none;
+}
+
+div.centered.text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+div.text.large {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* 
+ * @todo: Add media queries for smaller screens
+ *
+ * * * * * * * * * * * *  * *  * * * * *  * * * * * * *
+
+@media screen and (max-width: 800px) {
+    .page {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        height: auto;
+    }
+
+    .page .box.a3x1 {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .page .box.a4x1 {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .page .box.a3x2 {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .page .box.a4x2 {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .page .box.a3x3 {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .page .box.a4x3 {
+        grid-column: span 2;
+        grid-row: span 3;
+    }
+
+    .page .box.a3x4 {
+        grid-column: span 2;
+        grid-row: span 4;
+    }
+
+    .page .box.a4x4 {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-rows: 100px auto auto;
+        grid-template-areas:
+            "header"
+            "nav"
+            "main";
+    }
+
+    nav,
+    main,
+    header {
+        padding: 10px;
+    }
+
+    .notification-container {
+        width: calc(100% - 20px);
+    }
+
+    .page {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto;
+        height: auto;
+    }
+
+}
+
+ * * * * * * * * * * * * * * * * * * * * * * * * * *
+ */
