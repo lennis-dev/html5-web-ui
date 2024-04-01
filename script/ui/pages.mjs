@@ -31,7 +31,7 @@ function loadPage() {
         page.el.style.display = '';
         page.main(page.el, getHashParams());
     } else {
-        alert('Page not found');
+        window.location.hash = "#" + Object.keys(pages)[0];
     }
 }
 window.addEventListener("hashchange", loadPage);
