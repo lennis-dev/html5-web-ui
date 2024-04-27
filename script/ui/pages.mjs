@@ -3,8 +3,9 @@ import { createNewNavBarEntry } from "./navbar.mjs";
 
 const pages = {};
 
-export function createNewPage(hash, name, init, main) {
-    createNewNavBarEntry(name, "#" + hash);
+export function createNewPage(hash, name, init, main, createNavBarEntry = true) {
+    if (createNavBarEntry)
+        createNewNavBarEntry(name, "#" + hash);
     const root = document.querySelector('main');
     const el = document.createElement('div');
     el.classList.add('page');
